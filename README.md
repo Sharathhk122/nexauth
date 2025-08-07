@@ -56,6 +56,10 @@ It’s ideal for projects that require verified user access and strong session m
 
 ## 🖼️ Screenshots
 
+| Error Handling | Responsive UI |
+|----------------|---------------|
+| ![home]() | ![UI](./screenshots/responsive.png) |
+
 | Signup with Verification | Login Page |
 |--------------------------|-------------|
 | ![Signup](./screenshots/signup.png) | ![Login](./screenshots/login.png) |
@@ -64,9 +68,6 @@ It’s ideal for projects that require verified user access and strong session m
 |--------------------|-----------|
 | ![Email](./screenshots/email.png) | ![Dashboard](./screenshots/dashboard.png) |
 
-| Error Handling | Responsive UI |
-|----------------|---------------|
-| ![Error](./screenshots/error.png) | ![UI](./screenshots/responsive.png) |
 
 > Add your screenshots under the `frontend/public/screenshots/` or root `screenshots/` folder.
 
@@ -233,3 +234,4 @@ Made with ❤️ by [Sharath](mailto:sharathhk40@gmail.com)
 
 Would you like me to **generate this file as downloadable `README.md`**, or do you want help capturing/embedding screenshots?
 ```
+
