@@ -7,6 +7,6 @@ export default defineConfig({
     host: true,
     strictPort: true,
     port: 5173,
-    allowedHosts: ['nexauth-sharathhk.onrender.com'], // ✅ Add this line
+    allowedHosts: ['nexauth-sharath.onrender.com'], // ✅ Add this line
   }
 })
