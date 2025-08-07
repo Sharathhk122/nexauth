@@ -58,15 +58,15 @@ It’s ideal for projects that require verified user access and strong session m
 
 | Error Handling | Responsive UI |
 |----------------|---------------|
-| ![home]() | ![UI](./screenshots/responsive.png) |
+| ![home](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1103).png) | ![UI](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1103).png) |
 
 | Signup with Verification | Login Page |
 |--------------------------|-------------|
-| ![Signup](./screenshots/signup.png) | ![Login](./screenshots/login.png) |
+| ![Signup](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1105).png) | ![Login](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1104).png) |
 
 | Email Verification | Dashboard |
 |--------------------|-----------|
-| ![Email](./screenshots/email.png) | ![Dashboard](./screenshots/dashboard.png) |
+| ![Email](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1103).png) | ![Dashboard](https://github.com/Sharathhk122/nexauth/blob/main/Screenshot%20(1106).png) |
 
 
 > Add your screenshots under the `frontend/public/screenshots/` or root `screenshots/` folder.
@@ -234,4 +234,5 @@ Made with ❤️ by [Sharath](mailto:sharathhk40@gmail.com)
 
 Would you like me to **generate this file as downloadable `README.md`**, or do you want help capturing/embedding screenshots?
 ```
+
 
