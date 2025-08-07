@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useLocation, useNavigate, Link } from 'react-router-dom'; // Added Link
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { verifyEmail } from '../../api/auth';
-import { Button, Form, Input, Card, Typography, Alert, Divider, Spin } from 'antd';
+import { Form, Input, Button, Typography, Space, Divider } from 'antd';
 import { MailOutlined, SafetyOutlined } from '@ant-design/icons';
-import { motion } from 'framer-motion';
+import './index.css';
 
 const { Title, Text } = Typography;
 
@@ -15,17 +15,17 @@ const VerifyEmail = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   const emailFromState = location.state?.email || '';
 
   const formik = useFormik({
     initialValues: {
       email: emailFromState,
-      code: ''
+      code: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email').required('Email is required'),
-      code: Yup.string().required('Verification code is required')
+      code: Yup.string().required('Verification code is required'),
     }),
     onSubmit: async (values) => {
       setError(null);
@@ -39,122 +39,81 @@ const VerifyEmail = () => {
       } finally {
         setLoading(false);
       }
-    }
+    },
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-800 to-dark-900 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
-      >
-        <Card
-          className="bg-dark-700 border-none shadow-lg"
-          hoverable
-          bordered={false}
-        >
-          <div className="text-center mb-6">
-            <motion.div
-              animate={{ 
-                rotateZ: [0, 180, 360],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "loop"
-              }}
-            >
-              <div className="w-20 h-20 bg-primary-500 rounded-full mx-auto flex items-center justify-center shadow-lg">
-                <SafetyOutlined className="text-3xl text-dark-100" />
-              </div>
-            </motion.div>
-            <Title level={3} className="mt-4 text-light-100">Verify Email</Title>
-            <Text className="text-light-300">Enter your verification code</Text>
-          </div>
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="card-3d floating">
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+            <Title level={3} className="auth-title">
+              VERIFY EMAIL
+            </Title>
+            <Text type="secondary" className="auth-subtitle">
+              Enter your verification code
+            </Text>
 
-          {error && (
-            <Alert 
-              message={error} 
-              type="error" 
-              showIcon 
-              className="mb-6" 
-              closable
-              onClose={() => setError(null)}
-            />
-          )}
+            {error && <div className="auth-message auth-error">{error}</div>}
+            {success && <div className="auth-message auth-success">{success}</div>}
 
-          {success && (
-            <Alert 
-              message={success} 
-              type="success" 
-              showIcon 
-              className="mb-6" 
-            />
-          )}
-
-          <Spin spinning={loading} tip="Verifying...">
-            <Form onFinish={formik.handleSubmit} layout="vertical">
+            <Form onFinish={formik.handleSubmit} className="auth-form">
               <Form.Item
-                label={<span className="text-light-300">Email</span>}
-                validateStatus={formik.touched.email && formik.errors.email ? 'error' : ''}
                 help={formik.touched.email && formik.errors.email}
+                validateStatus={formik.touched.email && formik.errors.email ? 'error' : ''}
               >
                 <Input
-                  prefix={<MailOutlined className="text-light-300" />}
+                  prefix={<MailOutlined style={{ color: 'var(--light)' }} />}
+                  placeholder="Email"
                   name="email"
-                  size="large"
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  className="bg-dark-600 border-dark-500 text-light-100 hover:border-primary-500 focus:border-primary-500"
+                  size="large"
                 />
               </Form.Item>
 
               <Form.Item
-                label={<span className="text-light-300">Verification Code</span>}
-                validateStatus={formik.touched.code && formik.errors.code ? 'error' : ''}
                 help={formik.touched.code && formik.errors.code}
+                validateStatus={formik.touched.code && formik.errors.code ? 'error' : ''}
               >
                 <Input
-                  prefix={<SafetyOutlined className="text-light-300" />}
+                  prefix={<SafetyOutlined style={{ color: 'var(--light)' }} />}
+                  placeholder="Verification Code"
                   name="code"
-                  size="large"
                   value={formik.values.code}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  className="bg-dark-600 border-dark-500 text-light-100 hover:border-primary-500 focus:border-primary-500"
+                  size="large"
                 />
               </Form.Item>
 
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                loading={loading}
-                block
-                className="bg-primary-500 hover:bg-primary-600 border-none h-12 font-semibold text-dark-100"
-              >
-                {loading ? 'Verifying...' : 'Verify Email'}
-              </Button>
-
-              <Divider className="border-dark-500 text-light-300">or</Divider>
-
-              <div className="text-center">
-                <Text className="text-light-300">Need a new code? </Text>
-                <Link 
-                  to="/resend-code" 
-                  className="text-primary-400 hover:text-primary-300 font-medium"
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="auth-button"
+                  loading={loading}
+                  size="large"
                 >
-                  Resend
-                </Link>
-              </div>
+                  {loading ? 'VERIFYING...' : 'VERIFY EMAIL'}
+                </Button>
+              </Form.Item>
             </Form>
-          </Spin>
-        </Card>
-      </motion.div>
+
+            <Divider style={{ borderColor: 'rgba(224, 170, 255, 0.2)' }} />
+
+            <Text className="auth-info">
+              Need a new code?{' '}
+              <Link to="/resend-code" className="auth-link">
+                Resend
+              </Link>
+            </Text>
+          </Space>
+        </div>
+      </div>
+      <div className="auth-bg-circle bg-circle-1"></div>
+      <div className="auth-bg-circle bg-circle-2"></div>
     </div>
   );
 };

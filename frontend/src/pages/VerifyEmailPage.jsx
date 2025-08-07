@@ -1,16 +1,14 @@
-import VerifyEmail from '../components/Auth/VerifyEmail'
-import ResendVerification from '../components/Auth/ResendVerification'
-import { Box } from '@mui/material'
+import VerifyEmail from '../components/Auth/VerifyEmail';
+import ResendVerification from '../components/Auth/ResendVerification';
+import { Space } from 'antd';
 
 const VerifyEmailPage = () => {
   return (
-    <Box>
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <VerifyEmail />
-      <Box sx={{ mt: 4 }}>
-        <ResendVerification />
-      </Box>
-    </Box>
-  )
-}
+      <ResendVerification />
+    </Space>
+  );
+};
 
-export default VerifyEmailPage
+export default VerifyEmailPage;

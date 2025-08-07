@@ -1,0 +1,10 @@
+/* Navbar specific styles */
+.logo {
+    transform: perspective(500px) rotateY(10deg);
+    transition: all 0.3s;
+  }
+  
+  .logo:hover {
+    transform: perspective(500px) rotateY(0deg);
+    text-shadow: 0 0 10px rgba(155, 44, 191, 0.7);
+  }

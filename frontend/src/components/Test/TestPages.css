@@ -1,0 +1,8 @@
+/* Shared styles for test pages */
+.test-container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }

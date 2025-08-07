@@ -1,41 +1,145 @@
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material'
-import { useAuth } from '../../context/AuthContext'
-import { Link } from 'react-router-dom'
+// components/Layout/Navbar.jsx
+import { useAuth } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
+import { Menu, Layout, Button, Avatar, Space, Typography, Divider } from 'antd';
+import { LoginOutlined, LogoutOutlined, UserOutlined, DashboardOutlined, HomeOutlined } from '@ant-design/icons';
+import './Navbar.css';
+
+const { Header } = Layout;
+const { Text } = Typography;
 
 const Navbar = () => {
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
+
+  const items = [
+    {
+      key: 'home',
+      icon: <HomeOutlined />,
+      label: <Link to="/">Home</Link>,
+    },
+    {
+      key: 'public',
+      label: <Link to="/public-test">Public Test</Link>,
+    },
+    ...(user
+      ? [
+          {
+            key: 'dashboard',
+            icon: <DashboardOutlined />,
+            label: <Link to="/dashboard">Dashboard</Link>,
+          },
+          ...(user.role === 'ROLE_USER'
+            ? [
+                {
+                  key: 'user-test',
+                  label: <Link to="/user-test">User Test</Link>,
+                },
+              ]
+            : []),
+          ...(user.role === 'ROLE_ADMIN'
+            ? [
+                {
+                  key: 'admin-test',
+                  label: <Link to="/admin-test">Admin Test</Link>,
+                },
+              ]
+            : []),
+        ]
+      : []),
+  ];
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    <Header
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1,
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        background: 'linear-gradient(90deg, #10002b, #240046)',
+        padding: '0 24px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.45)',
+      }}
+    >
+      <div className="logo" style={{ marginRight: '24px' }}>
+        <Text strong style={{ color: '#e0aaff', fontSize: '20px' }}>
           SecureApp
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Button color="inherit" component={Link} to="/">Home</Button>
-          <Button color="inherit" component={Link} to="/public-test">Public Test</Button>
-          
-          {user ? (
-            <>
-              <Button color="inherit" component={Link} to="/dashboard">Dashboard</Button>
-              {user.role === 'ROLE_USER' && (
-                <Button color="inherit" component={Link} to="/user-test">User Test</Button>
-              )}
-              {user.role === 'ROLE_ADMIN' && (
-                <Button color="inherit" component={Link} to="/admin-test">Admin Test</Button>
-              )}
-              <Button color="inherit" onClick={logout}>Logout</Button>
-            </>
-          ) : (
-            <>
-              <Button color="inherit" component={Link} to="/login">Login</Button>
-              <Button color="inherit" component={Link} to="/register">Register</Button>
-            </>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
-  )
-}
+        </Text>
+      </div>
 
-export default Navbar
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        items={items}
+        style={{
+          flex: 1,
+          minWidth: 0,
+          background: 'transparent',
+          borderBottom: 'none',
+        }}
+      />
+
+      <Space size="middle">
+        {user ? (
+          <>
+            <Avatar
+              icon={<UserOutlined />}
+              style={{
+                backgroundColor: '#7b2cbf',
+                transform: 'rotateY(20deg)',
+                transition: 'all 0.3s',
+              }}
+            />
+            <Text style={{ color: '#e0aaff' }}>{user.username}</Text>
+            <Button
+              type="primary"
+              shape="round"
+              icon={<LogoutOutlined />}
+              onClick={logout}
+              className="animated-button"
+              style={{
+                background: 'linear-gradient(45deg, #ff6d00, #ff9e00)',
+                border: 'none',
+              }}
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <Button
+                type="primary"
+                shape="round"
+                icon={<LoginOutlined />}
+                className="animated-button"
+                style={{
+                  background: 'linear-gradient(45deg, #7b2cbf, #9d4edd)',
+                  border: 'none',
+                }}
+              >
+                Login
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button
+                shape="round"
+                className="animated-button"
+                style={{
+                  background: 'transparent',
+                  border: '1px solid #9d4edd',
+                  color: '#e0aaff',
+                }}
+              >
+                Register
+              </Button>
+            </Link>
+          </>
+        )}
+      </Space>
+    </Header>
+  );
+};
+
+export default Navbar;
